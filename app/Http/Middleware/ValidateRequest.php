@@ -6,30 +6,46 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\ValidationSchemas\Schemas;
+use Illuminate\Validation\Rule;
 
 class ValidateRequest
 {
-    protected array $schemas = [
-        'register' => [
-            'name' => 'required|string|max:255|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
-        ],
-        'login' => [
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ],
-    ];
-
 
     public function handle(Request $request, Closure $next, $key=null )
     {
-        $schema = $this->schemas[$key] ?? null;
-        if (!$key || !isset($this->schemas[$key])) {
+        $schemas =  Schemas::get();
+        $schema = $schemas[$key] ?? null;
+
+        if (!$key || !isset($schemas[$key])) {
             return $next($request);
         }
 
-        $validator = Validator::make($request->all(), $schema);
+        if (isset($schema['isUniqueMobileExceptUsers']) && $schema['isUniqueMobileExceptUsers'] && $request->user()) {
+            unset($schema['isUniqueMobileExceptUsers']);
+            $mobileRule = $schema['mobile'] ?? [];
+
+            if (is_string($mobileRule)) {
+                $mobileRule = explode('|', $mobileRule);
+            }
+
+            $mobileRule[] = Rule::unique('users', 'mobile')->ignore($request->user()->id, '_id');
+            $schema['mobile'] = $mobileRule;
+        }
+
+        if (isset($schema['isUniqueEmailExceptUsers']) && $schema['isUniqueEmailExceptUsers'] && $request->user()) {
+            unset($schema['isUniqueEmailExceptUsers']);
+            $emailRule = $schema['email'] ?? [];
+
+            if (is_string($emailRule)) {
+                $emailRule = explode('|', $emailRule);
+            }
+
+            $emailRule[] = Rule::unique('users', 'email')->ignore($request->user()->id, '_id');
+            $schema['email'] = $emailRule;
+        }
+
+        $validator = Validator::make($request->all(), $schema, $schemas['errorMessages']);
 
         if ($validator->fails()) {
             $errors = collect($validator->errors())->map(function ($errorMessages, $field) {

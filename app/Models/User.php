@@ -12,23 +12,42 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'mobile',
         'email',
         'password',
+        'profile_pic',
+        'is_admin',
+        'role_id'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'updated_at',
+        'created_at',
+        'role_id'
     ];
-
+    
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', '_id');
+    }
+
+    /**
+     * Always append the role relationship when serializing
+     */
+    protected $with = ['role'];
 
     public $timestamps = true;
 }

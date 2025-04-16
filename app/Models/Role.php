@@ -12,6 +12,16 @@ class Role extends Model
         'description',
     ];
 
+    protected $hidden = [
+        'updated_at',
+        'created_at',
+    ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'role_id', '_id');
+    }
+
     public $timestamps = true;
 
 }
