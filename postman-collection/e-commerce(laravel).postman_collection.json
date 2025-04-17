@@ -192,6 +192,20 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get FAQs list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/settings/faq"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
