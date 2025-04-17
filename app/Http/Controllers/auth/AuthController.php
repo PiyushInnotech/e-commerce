@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\VerificationCode;
 use App\Constants\Constants;
+use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -21,8 +23,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
             'message' => 'User registered successfully',
+            'user' => $user,
+            'token' => "Bearer $token"
         ]);
     }
 
@@ -65,6 +71,8 @@ class AuthController extends Controller
             'code' => $code,
             'is_used' => false
         ]);
+
+        Mail::to($email)->send(new EmailVerification($verificationCode));
 
         return response()->json([
             'message' => 'Verification code sent successfully.',
