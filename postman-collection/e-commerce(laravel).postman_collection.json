@@ -190,6 +190,67 @@
 						"url": "{{base_url}}/user/update-details"
 					},
 					"response": []
+				},
+				{
+					"name": "Update User Profile Img",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": "{{base_url}}/user/update-profile-pic"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Profile Img",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/user/delete-profile-pic"
+					},
+					"response": []
 				}
 			]
 		},

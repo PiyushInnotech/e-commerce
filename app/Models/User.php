@@ -18,6 +18,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_pic',
+        'profile_id',
         'is_admin',
         'role_id'
     ];
@@ -27,7 +28,8 @@ class User extends Authenticatable
         'remember_token',
         'updated_at',
         'created_at',
-        'role_id'
+        'role_id',
+        'profile_id'
     ];
     
     protected function casts(): array

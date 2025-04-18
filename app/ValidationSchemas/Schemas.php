@@ -36,6 +36,9 @@ class Schemas
                 'isUniqueMobileExceptUsers' => true,
                 'isUniqueEmailExceptUsers' => true
             ],
+            'imageSchema' => [
+                'image' => 'required|image|max:2048'
+            ],
 
             // custom error messages
             'errorMessages' => [
