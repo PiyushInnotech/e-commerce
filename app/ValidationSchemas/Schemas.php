@@ -10,6 +10,7 @@ class Schemas
             'registerSchema' => [
                 'email' => 'required|email|unique:users',
                 'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required',
             ],
             'loginSchema' => [
                 'email' => 'required|email',
@@ -30,7 +31,6 @@ class Schemas
             'updateUserSchema' => [
                 'first_name' => 'sometimes|string|max:255|min:3',
                 'last_name' => 'sometimes|string|max:255|min:3',
-                'role_id' => 'sometimes|exists:roles,_id',
                 'email' => 'sometimes|email',
                 'mobile' => 'sometimes|string|regex:/^[+]\d{2}?\d{10}$/',
                 'isUniqueMobileExceptUsers' => true,

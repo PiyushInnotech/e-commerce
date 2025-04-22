@@ -7,59 +7,47 @@ use App\Models\VerificationCode;
 use App\Constants\Constants;
 use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
+use App\ValidationSchemas\Schemas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class PanelAuthController extends Controller
 {
 
-    public function registerUser(Request $request) 
-    {
+    public function registerPanelUser(Request $request) {
         $user = User::create([
             'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user->fresh(),
-            'token' => "Bearer $token"
-        ]);
+        return redirect('/login');
     }
 
-    public function login(Request $request) 
-    {
-
+    public function signinPanelUser(Request $request) 
+    {    
         $user = User::where('email', $request->email)->first();
-
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'The provided credentials are incorrect.'], 401);
+            return redirect()->back()
+                ->with('error', 'The provided credentials are incorrect.')
+                ->withInput();
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User signed in successfully',
-            'user' => $user,
-            'token' => "Bearer $token"
-        ]);
+        Auth::guard('web')->login($user);
+        return redirect('/dashboard');
     }
 
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
+    public function logoutCurrentUser(Request $request)
+    {    
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return response()->json([
-            'message' => 'Successfully logged out',
-        ]);
+        return redirect('/login');
     }
 
-    public function sendEmailCode(Request $request)
+    public function sendEmailCodeForUser(Request $request)
     {
         $email = $request->email;
         VerificationCode::where('email', $email)->delete();
@@ -73,10 +61,7 @@ class AuthController extends Controller
         ]);
 
         Mail::to($email)->send(new EmailVerification($verificationCode));
-
-        return response()->json([
-            'message' => 'Verification code sent successfully.',
-        ]);
+        return redirect('/verify-reset-code');
     }
 
     public function verifyEmailCode(Request $request)
