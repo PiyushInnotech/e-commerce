@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"password\": \"Test@123\",\r\n    \"password_confirmation\" : \"Test@123\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"testuser123@gmail.com\",\r\n    \"password\": \"Test@123\",\r\n    \"password_confirmation\" : \"Test@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"password\" : \"Test@123\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"testuser123@gmail.com\",\r\n    \"password\" : \"Test@4\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -81,7 +81,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"testuser1123@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -99,7 +99,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"code\" : \"\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"code\" : \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -165,7 +165,7 @@
 				{
 					"name": "Update User Details",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -180,14 +180,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"User\",\r\n    \"mobile\": \"+919876543210\",\r\n    \"email\": \"testuser1@gmail.com\",\r\n    \"role_id\": \"67ff919deebafc965b0e38f2\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"User\",\r\n    \"phone_number\": \"+919876543210\",\r\n    \"email\": \"testuser1@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/user/update-details"
+						"url": "{{base_url}}/user/update-profile"
 					},
 					"response": []
 				},
@@ -213,7 +213,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/means/Downloads/MainAfter.webp"
 								}
 							]
 						},

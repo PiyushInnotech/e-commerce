@@ -11,7 +11,7 @@ Route::prefix('user')->group(function () {
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/me', [UserController::class, 'fetchCurrentUser']);
-        Route::post('/update-profile', [UserController::class, 'updateUserDetails'])->middleware('validateRequest:updateUserSchema');
+        Route::put('/update-profile', [UserController::class, 'updateUserDetails'])->middleware('validateRequest:updateUserSchema');
         Route::post('/update-profile-pic', [UserController::class, 'updateProfilePic'])->middleware('validateRequest:imageSchema');
         Route::delete('/delete-profile-pic', [UserController::class, 'deleteProfilePic']);
     });

@@ -60,8 +60,41 @@ class PanelAuthController extends Controller
             'is_used' => false
         ]);
 
-        Mail::to($email)->send(new EmailVerification($verificationCode));
-        return redirect('/verify-reset-code');
+        //@TODO
+        // Mail::to($email)->send(new EmailVerification($verificationCode));
+        return redirect()->route('password.verify-code')->with('email', $email);
+    }
+
+    public function showVerifyCodeForm()
+    {
+        $email = session('email');
+        
+        if (!$email) {
+            return redirect('/forgot-password');
+        }
+        return view('auth.verify-reset-code', ['email' => $email]);
+    }
+
+    public function resendVerificationCode(Request $request)
+    {
+        $email = $request->email;
+    
+        VerificationCode::where('email', $email)->delete();
+
+        $code = rand(100000, 999999);
+
+        $verificationCode = VerificationCode::create([
+            'email' => $email,
+            'code' => $code,
+            'is_used' => false
+        ]);
+
+        //@TODO
+        // Mail::to($email)->send(new EmailVerification($verificationCode));
+        return back()->with([
+            'message' => 'A new verification code has been sent.',
+            'email' => $email
+        ]);
     }
 
     public function verifyEmailCode(Request $request)
@@ -76,20 +109,35 @@ class PanelAuthController extends Controller
         ->first();
 
         if (!$verification) {
-            return response()->json(['message' => 'Invalid or expired verification code.'], 401);
+            return redirect()->back()
+                ->with('error', 'Invalid or expired verification code.')
+                ->withInput();
         }
 
         if ($verification->created_at->addMinutes($expiryMinutes)->lt(now())) {
             $verification->delete();
-            return response()->json(['message' => 'Invalid or expired verification code.'], 401);
+            return redirect()->back()
+            ->with('error', 'Invalid or expired verification code.')
+            ->withInput();        
         }
+        $verificationCode->delete();
+        return redirect()->route('password.reset')->with([
+            'email' => $email,
+            'code' => $code
+        ]);;
+    }
 
-        $verification->is_used = true;
-        $verification->save();
-
-        return response()->json([
-            'message' => 'You email has been verified successfully',
-        ]);
+    public function showResetPasswordForm()
+    {
+        //@TODO
+        // $email = session('email');
+        // $code = session('code');
+        
+        // if (!$email || !$code) {
+        //     return redirect('/forgot-password');
+        // }
+        // return view('auth.verify-reset-code', ['email' => $email, 'code' => $code]);
+        return view('auth.reset-password', ['email' => 'testuser1@gmail.com', 'code' => '123456']);
     }
 
     public function resetUserPassword(Request $request)
@@ -97,30 +145,11 @@ class PanelAuthController extends Controller
         $email = $request->email;
         $code = $request->code;
         $password = $request->password;
-        $expiryMinutes = Constants::EMAIL_VERIFICATION_CODE_EXPIRY_MINUTES;
-
         $user = User::where('email', $email)->first();
-
-        $verificationCode = VerificationCode::where('email', $email)
-        ->where('code', (int) $code)
-        ->first();
-
-        if (!$verificationCode) {
-            return response()->json(['message' => 'Invalid or expired verification code.'], 401);
-        }
-
-        if ($verificationCode->created_at->addMinutes($expiryMinutes)->lt(now())) {
-            $verificationCode->delete();
-            return response()->json(['message' => 'Invalid or expired verification code.'], 401);
-        }
-
-        $verificationCode->delete();
         $user->password = Hash::make($request->password);
         $user->tokens()->delete();
         $user->save();
 
-        return response()->json([
-            'message' => 'You Password has been reset succesfully.',
-        ]);
+        return redirect('/login');
     }
 }

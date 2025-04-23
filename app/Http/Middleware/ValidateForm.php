@@ -23,14 +23,14 @@ class ValidateForm
 
         if (isset($schema['isUniqueMobileExceptUsers']) && $schema['isUniqueMobileExceptUsers'] && $request->user()) {
             unset($schema['isUniqueMobileExceptUsers']);
-            $mobileRule = $schema['mobile'] ?? [];
+            $mobileRule = $schema['phone_number'] ?? [];
 
             if (is_string($mobileRule)) {
                 $mobileRule = explode('|', $mobileRule);
             }
 
-            $mobileRule[] = Rule::unique('users', 'mobile')->ignore($request->user()->id, '_id');
-            $schema['mobile'] = $mobileRule;
+            $mobileRule[] = Rule::unique('users', 'phone_number')->ignore($request->user()->id, '_id');
+            $schema['phone_number'] = $mobileRule;
         }
 
         if (isset($schema['isUniqueEmailExceptUsers']) && $schema['isUniqueEmailExceptUsers'] && $request->user()) {
