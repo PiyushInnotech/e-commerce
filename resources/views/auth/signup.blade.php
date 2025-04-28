@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('auth.main')
 
 @section('content')
 <div class="bg-[#134c9b] flex items-center justify-center min-h-screen flex-col bg-left-top bg-no-repeat">

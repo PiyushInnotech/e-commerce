@@ -61,7 +61,8 @@ class PanelAuthController extends Controller
         ]);
 
         Mail::to($email)->send(new EmailVerification($verificationCode));
-        return redirect()->route('password.verify-code')->with('email', $email);
+        session()->put('email', $email);
+        return redirect()->route('password.verify-code');
     }
 
     public function showVerifyCodeForm()
@@ -88,10 +89,10 @@ class PanelAuthController extends Controller
             'is_used' => false
         ]);
 
+        session()->put('email', $email);
         Mail::to($email)->send(new EmailVerification($verificationCode));
         return back()->with([
             'message' => 'A new verification code has been sent.',
-            'email' => $email
         ]);
     }
 
@@ -118,11 +119,10 @@ class PanelAuthController extends Controller
             ->with('error', 'Invalid or expired verification code.')
             ->withInput();        
         }
-        $verificationCode->delete();
-        return redirect()->route('password.reset')->with([
-            'email' => $email,
-            'code' => $code
-        ]);;
+        $verification->delete();
+        session()->put('email', $email);
+        session()->put('code', $code);
+        return redirect()->route('password.reset');;
     }
 
     public function showResetPasswordForm()
@@ -133,7 +133,7 @@ class PanelAuthController extends Controller
         if (!$email || !$code) {
             return redirect('/forgot-password');
         }
-        return view('auth.verify-reset-code', ['email' => $email, 'code' => $code]);
+        return view('auth.reset-password', ['email' => $email, 'code' => $code]);
     }
 
     public function resetUserPassword(Request $request)

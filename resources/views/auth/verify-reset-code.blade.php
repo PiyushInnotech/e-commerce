@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('auth.main')
 
 @section('content')
 <div class="flex p-6 lg:p-8 items-center justify-center min-h-screen flex-col bg-contain bg-center" style="background-image: url('{{ asset('images/bg-blue.png') }}')">

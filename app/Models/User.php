@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Auth\User as Authenticatable;
+use App\Constants\Constants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -42,6 +43,21 @@ class User extends Authenticatable
         ];
     }
 
+    public function sellerDetails()
+    {
+        return $this->hasOne(Seller::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function identityProof()
+    {
+        return $this->hasOne(IdentityProof::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id', '_id');
@@ -53,7 +69,7 @@ class User extends Authenticatable
 
         static::creating(function ($user) {
             // Get the default 'user' role from the roles collection
-            $defaultRole = Role::where('name', 'User')->first();
+            $defaultRole = Role::where('name', Constants::USER_ROLE)->first();
             
             if ($defaultRole) {
                 $user->role_id = $defaultRole->_id;
