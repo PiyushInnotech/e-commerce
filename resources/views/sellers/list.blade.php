@@ -10,7 +10,7 @@
             <h1 class="text-[26px] font-bold tracking-wide">All Sellers</h1>
         </div>
 
-        <form method="GET" action="{{ route('user.list') }}" class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4">
+        <form method="GET" action="{{ route('seller.list') }}" class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4">
             <input type="text" name="limit" value="{{ $limit }}" class="hidden"/>
             <div class="flex xl:items-center flex-col xl:flex-row gap-y-3 gap-x-8">
                 <div class="flex flex-col items-start gap-2">
@@ -102,7 +102,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-4 py-4 text-center text-sm text-gray-500">
+                            <td colspan="9" class="px-4 py-4 text-center text-sm text-gray-500">
                                 No users found.
                             </td>
                         </tr>

@@ -4,7 +4,7 @@
         <h3 class="text-xl font-medium text-gray-900 border-b pb-2 border-gray-300">Business Information</h3>
         
         <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-4">
+            <div class="sm:col-span-6">
                 <label for="business_name" class="font-medium 3xl:text-xl 3xl:font-semibold">Business Name
                     <span class="text-red-600">*</span>
                 </label>
@@ -101,7 +101,7 @@
                     <span class="text-red-600">*</span>
                 </label>
                 <input type="text" name="address_line1" id="address_line1"
-                    placeholder="" value="{{ old('address_line1', session('client_registration_data.businessAddress.line1')) }}">
+                    placeholder="" value="{{ old('address_line1', session('client_registration_data.businessAddress.line1')) }}"
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                 @error('address_line1')
                     <p class="mt-2 text-sm text-red-600 3xl:text-base">{{ $message }}</p>
@@ -170,10 +170,10 @@
     </div>
 
     <div class="mt-8 flex justify-between">
-        <button type="button" onclick="window.location.href='{{ route('seller.register.personal') }}'" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button type="button" onclick="window.location.href='{{ route('seller.register.personal') }}'" class="inline-flex justify-center py-2 px-6 border border-[#334a8b] shadow-sm font-medium rounded-md text-[#334a8b] bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bg-blue-950 cursor-pointer">
             Back
         </button>
-        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-6 border border-transparent shadow-sm font-medium rounded-md text-white bg-[#334a8b] hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#334a8b] cursor-pointer">
             Next: Identity Proof
         </button>
     </div>

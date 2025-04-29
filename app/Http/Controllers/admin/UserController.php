@@ -47,37 +47,30 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         $registrationData = $request->session()->get($this->clientSessionKey, []);
 
-        if(str_contains($route, 'personal')) {
-            if ($referer && !str_contains($referer, 'business')) {
-                $request->session()->forget($this->clientSessionKey);
-            }
+        $routes = ['personal', 'business', 'identity', 'complete'];
+
+        $isComingFromLaterStep = $referer && array_filter($routes, function($r) use ($referer) {
+            return str_contains($referer, $r);
+        });
+        
+        if (!$isComingFromLaterStep) {
+            $request->session()->forget($this->clientSessionKey);
         }
 
+
         if (str_contains($route, 'business')) {
-            if (!$referer || (!str_contains($referer, 'personal') && !str_contains($referer, 'identity'))) {
-                $request->session()->forget($this->clientSessionKey);
-                return redirect()->route('seller.register.personal');
-            }
             if (empty($registrationData['personal']) || empty($registrationData['userAddress'])) {
                 return redirect()->route('seller.register.personal');
             }
         }
 
         if (str_contains($route, 'identity')) {
-            if (!$referer || (!str_contains($referer, 'business') && !str_contains($referer, 'complete'))) {
-                $request->session()->forget($this->clientSessionKey);
-                return redirect()->route('seller.register.personal');
-            }
             if (empty($registrationData['business']) || empty($registrationData['businessAddress'])) {
                 return redirect()->route('seller.register.business');
             }
         }
 
         if (str_contains($route, 'complete')) {
-            if (!$referer || (!str_contains($referer, 'identity'))) {
-                $request->session()->forget($this->clientSessionKey);
-                return redirect()->route('seller.register.personal');
-            }
             if (empty($registrationData['identity'])) {
                 return redirect()->route('seller.register.business');
             }
