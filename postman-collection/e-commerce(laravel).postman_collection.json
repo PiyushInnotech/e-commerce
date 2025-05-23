@@ -1,0 +1,1308 @@
+{
+	"info": {
+		"_postman_id": "fbd1756a-ff12-44be-8b99-3eb33c08284c",
+		"name": "e-commerce(laravel)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7103822"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser123@gmail.com\",\r\n    \"password\": \"Test@123\",\r\n    \"password_confirmation\" : \"Test@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser123@gmail.com\",\r\n    \"password\" : \"Test@4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"code\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/verify-user"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Send Email Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser1123@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/send-email-code"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"code\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/verify-email-code"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset New Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\",\r\n    \"code\" : \"350013\",\r\n    \"password\": \"test@1234\",\r\n    \"password_confirmation\" : \"test@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/reset-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{base_url}}/user/me"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/user/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Details",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"User\",\r\n    \"phone_number\": \"+919876543210\",\r\n    \"email\": \"testuser1@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/update-profile"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile Img",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/means/Downloads/MainAfter.webp"
+								}
+							]
+						},
+						"url": "{{base_url}}/user/update-profile-pic"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Profile Img",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/user/delete-profile-pic"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get FAQs list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/settings/faq"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Categories list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "women",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/list/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "681221b40d4159e5190a2942"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Categories list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sub-categories/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sub-categories",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "women",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "68106fb12b3bb45d350183f2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sub-categories/list/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sub-categories",
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "681462825e3e9c27c70c8ab2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Sub Category List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sub-sub-categories/list?categoryId=681221b40d4159e5190a2942",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sub-sub-categories",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "women",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "681221b40d4159e5190a2942"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Sub Category By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sub-sub-categories/list/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sub-sub-categories",
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "681462825e3e9c27c70c8ab3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Products list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "saree",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "2000",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "4000",
+									"disabled": true
+								},
+								{
+									"key": "brandIds",
+									"value": "brandId1, brandId2, brandId3",
+									"disabled": true
+								},
+								{
+									"key": "categoryIds",
+									"value": "id1, id2, id3",
+									"disabled": true
+								},
+								{
+									"key": "subCategoryIds",
+									"value": "id1, id2, id3",
+									"disabled": true
+								},
+								{
+									"key": "subSubCategoryIds",
+									"value": "id1, id2, id3",
+									"disabled": true
+								},
+								{
+									"key": "sizes",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Product Details by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6818f30dcff1e58e6f08e762"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Cart API",
+			"item": [
+				{
+					"name": "Add Product to a cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\" : \"6818f30dcff1e58e6f08e762\",\r\n    \"selected_size\" : \"M\",\r\n    \"selected_color\" : \"#FFFFFF\",\r\n    \"quantity\" : \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product to cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"68259d2a2c431722ff0435d3\",\r\n    \"size\" : \"M\",\r\n    \"color\"  : \"#123456\",\r\n    \"quantity\" : 402\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/update"
+					},
+					"response": []
+				},
+				{
+					"name": "Move to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ids\" : [\"682739c5671e8dff6d00fb29\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/to-wishlist"
+					},
+					"response": []
+				},
+				{
+					"name": "Cart list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove multiple Products from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ids\" : [\"6820f2edf062a66d2b0d0814\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/remove"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove All Products from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/cart/remove-all"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist API",
+			"item": [
+				{
+					"name": "Add Product to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\" : \"6818f30dcff1e58e6f08e762\",\r\n    \"selected_size\" : \"M\",\r\n    \"selected_color\" : \"#FFFFFF\",\r\n    \"quantity\" : \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/wishlist/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Wishlist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/wishlist/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Move to cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ids\" : [\"682739c5671e8dff6d00fb29\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/wishlist/to-cart"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove multiple Products from wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ids\" : [\"68273994671e8dff6d00fb28\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/wishlist/remove"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove All Products from wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/wishlist/remove-all"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Addresses",
+			"item": [
+				{
+					"name": "Available Address Types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/address/types-list"
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contact_name\" : \"\",\r\n    \"contact_number\" : \"\",\r\n    \"line1\": \"Street 1\",\r\n    \"line2\": \"House No32\",\r\n    \"type\": \"Home\",\r\n    \"city\": \"\",\r\n    \"state\": \"\",\r\n    \"postal_code\": \"\",\r\n    \"country\": \"\",\r\n    \"is_primary\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/address/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contact_name\" : \"\",\r\n    \"contact_number\" : \"\",\r\n    \"address_id\" : \"6800cfce25c1bbc35f047e9b\",\r\n    \"line1\": \"Street 1\",\r\n    \"line2\": \"House No32\",\r\n    \"type\": \"Home\",\r\n    \"city\": \"\",\r\n    \"state\": \"\",\r\n    \"postal_code\": \"\",\r\n    \"country\": \"\",    \r\n    \"is_primary\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/address/update"
+					},
+					"response": []
+				},
+				{
+					"name": "User Addresses List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/address/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/address/remove/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"address",
+								"remove",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart_items_ids\" : [],\r\n    \"shipping_address_id\" : \"\",\r\n    \"payment_method\" : \"\",\r\n    \"order_note\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/orders/new"
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Promo code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart_items_ids\" : [\"682821ae717fde40120a8a15\", \"68302f5199b02d39f1034012\"],\r\n    \"promo_code\" : \"FIRSTORDER250\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/orders/validate-promo-code"
+					},
+					"response": []
+				},
+				{
+					"name": "Review a product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\" : \"68199c47c7bec7c9d1038132\",\r\n    \"rating\" : \"4\",\r\n    \"review\" : \"Vey comfortable\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/products/review"
+					},
+					"response": []
+				},
+				{
+					"name": "List All Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Pending",
+									"disabled": true
+								},
+								{
+									"key": "fromDate",
+									"value": "2025-05-15",
+									"disabled": true
+								},
+								{
+									"key": "toDate",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders/:orderId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6825f4f98acb84132309318c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oder Statuses List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/orders/status-types"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
